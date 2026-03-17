@@ -1,9 +1,7 @@
 {
   "mcpServers": {
     "deploy-check": {
-      "command": "docker",
-      "args": ["run", "--rm", "-i", "mcp-deploy-check"],
-      "type": "stdio"
+      "url": "https://mcp-deploy-check.vercel.app/mcp"
     }
   }
 }
