@@ -1,6 +1,7 @@
 {
   "mcpServers": {
     "deploy-check": {
+      "type": "http",
       "url": "https://mcp-deploy-check.vercel.app/mcp"
     }
   }
