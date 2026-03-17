@@ -1,0 +1,6 @@
+services:
+  mcp-deploy-check:
+    build: .
+    image: mcp-deploy-check
+    stdin_open: true
+    tty: false

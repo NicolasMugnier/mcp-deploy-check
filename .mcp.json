@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "deploy-check": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "mcp-deploy-check"],
+      "type": "stdio"
+    }
+  }
+}
