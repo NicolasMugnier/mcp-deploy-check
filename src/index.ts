@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { checkDeploy } from "./check.js";
+import { z } from "zod";
+import { checkDeploy, DEFAULT_TIMEZONE } from "./check.js";
 
 const server = new McpServer({
   name: "mcp-deploy-check",
@@ -10,9 +11,9 @@ const server = new McpServer({
 server.tool(
   "can_i_deploy",
   "Checks whether it is safe to deploy to production right now based on the current day and time.",
-  {},
-  async () => {
-    const { allowed, reason } = checkDeploy();
+  { timezone: z.string().optional().describe(`IANA timezone name (e.g. "Europe/Paris", "America/New_York"). Defaults to ${DEFAULT_TIMEZONE}.`) },
+  async ({ timezone }) => {
+    const { allowed, reason } = checkDeploy(timezone);
     return {
       content: [{ type: "text", text: `${allowed ? "✅ YES" : "🚫 NO"} — ${reason}` }],
     };
