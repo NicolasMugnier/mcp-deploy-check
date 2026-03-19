@@ -25,7 +25,25 @@ function createServer(): McpServer {
   return server;
 }
 
+const ALLOWED_ORIGINS = [
+  "https://blog.anyvoid.dev",
+  "https://nicolasmugnier.github.io",
+];
+
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
+  const origin = (req.headers["origin"] as string) ?? "";
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
+  }
+
+  if (req.method === "OPTIONS") {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined, // stateless mode
   });
