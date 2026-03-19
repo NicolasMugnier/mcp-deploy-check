@@ -1,8 +1,9 @@
 {
   "mcpServers": {
     "deploy-check": {
-      "type": "http",
-      "url": "https://mcp-deploy-check.anyvoid.dev/mcp"
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "mcp-deploy-check"],
+      "type": "stdio"
     }
   }
 }
